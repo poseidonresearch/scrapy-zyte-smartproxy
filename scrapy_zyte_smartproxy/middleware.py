@@ -289,8 +289,8 @@ class ZyteSmartProxyMiddleware(object):
     def _is_enabled_for_request(self, request):
         domain = self._get_url_domain(request.url)
         domain_enabled = self.enabled_for_domain.get(domain, False)
-        dont_proxy = request.meta.get('dont_proxy', False)
-        return (domain_enabled or self.enabled) and not dont_proxy
+        proxy = request.meta.get('proxy', False)
+        return (domain_enabled or self.enabled) and proxy
 
     def _get_url_domain(self, url):
         parsed = urlparse(url)
